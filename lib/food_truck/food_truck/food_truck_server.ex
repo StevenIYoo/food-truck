@@ -1,4 +1,4 @@
-defmodule FoodTruck.FoodTruck.FoodTruckServer do
+defmodule FoodTruck.FoodTruckServer do
   use GenServer
   require Logger
 
@@ -6,9 +6,18 @@ defmodule FoodTruck.FoodTruck.FoodTruckServer do
   alias FoodTruck.ParseContent
   alias FoodTruck.FoodTruck
 
+  @type state :: %{
+    food_trucks: list(%FoodTruck{})
+  }
+
   @spec server_name() :: GenServer.name()
   def server_name() do
     {:global, "#{__MODULE__}"}
+  end
+
+  @spec start_link({}) :: :ignore | {:error, any} | {:ok, pid}
+  def start_link({}) do
+    GenServer.start_link(__MODULE__, {}, name: server_name())
   end
 
   @impl true
@@ -18,7 +27,6 @@ defmodule FoodTruck.FoodTruck.FoodTruckServer do
     |> ParseContent.parse_content()
     |> ParseContent.get_food_trucks()
     |> Enum.map(&(FoodTruck.new_food_truck(&1)))
-    |> IO.inspect(pretty: true, label: "food trucks")
 
     state = %{
       food_trucks: food_trucks
@@ -31,7 +39,8 @@ defmodule FoodTruck.FoodTruck.FoodTruckServer do
 
   @impl true
   def handle_call(:get_random_food_truck, _from, state) do
-    random_number = Enum.random(0..Enum.count(state.food_trucks))
-    {:reply, Enum.fetch!(state.food_trucks, random_number)}
+    {:reply, Enum.fetch!(state.food_trucks, get_random_number(state))}
   end
+
+  defp get_random_number(state), do: Enum.random(0..Enum.count(state.food_trucks))
 end

@@ -13,15 +13,18 @@ defmodule FoodTruck.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: FoodTruck.PubSub},
       # Start the Endpoint (http/https)
-      FoodTruckWeb.Endpoint
+      FoodTruckWeb.Endpoint,
       # Start a worker by calling: FoodTruck.Worker.start_link(arg)
       # {FoodTruck.Worker, arg}
+      FoodTruck.FoodTruckSupervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: FoodTruck.Supervisor]
-    Supervisor.start_link(children, opts)
+    {:ok, pid} = Supervisor.start_link(children, opts)
+    start_application()
+    {:ok, pid}
   end
 
   # Tell Phoenix to update the endpoint configuration
@@ -30,5 +33,10 @@ defmodule FoodTruck.Application do
   def config_change(changed, _new, removed) do
     FoodTruckWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  @spec start_application() :: :ok
+  def start_application() do
+    FoodTruck.FoodTruckSupervisor.start_food_truck_system()
   end
 end
