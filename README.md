@@ -16,3 +16,9 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+
+## How to use
+  * run server with `iex -S mix phx.server`
+  * run `FoodTruck.FoodTruckAPI.get_random_food_truck()
+Will return a random food truck from csv list
