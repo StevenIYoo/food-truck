@@ -6,7 +6,7 @@ defmodule FileParseTest do
 
   @test_file_local_path "/test/Mobile_Food_Facility_Permit_Test.csv"
 
-  describe "file reader" do
+  describe "file and content reader" do
     setup do
       {:ok, test_file_local_path: @test_file_local_path}
     end

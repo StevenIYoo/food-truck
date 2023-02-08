@@ -15,7 +15,7 @@ defmodule FoodTruck.ParseContent do
   end
 
   @doc "Returns first line assumed to be header"
-  @spec get_header(list(String.t)) :: list(String.t)
+  @spec get_header(list(String.t)) :: String.t
   def get_header([head | _tail] = _parsed_list), do: head
 
   @doc "Returns rest of content"
