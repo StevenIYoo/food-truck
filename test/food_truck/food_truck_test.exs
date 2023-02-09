@@ -5,11 +5,13 @@ defmodule FoodTruckTest do
   alias FoodTruck.ParseContent
   alias FoodTruck.FoodTruckStruct
 
-  @test_file_local_path "/test/Mobile_Food_Facility_Permit_Test.csv"
+  @test_file_local_path "/test/files/Mobile_Food_Facility_Permit_Test.csv"
 
   describe "food truck struct" do
     setup do
-      parsed_food_trucks = FileReader.read_file(@test_file_local_path)
+      test_file_path = File.cwd!() <> @test_file_local_path
+
+      parsed_food_trucks = FileReader.read_file(test_file_path)
       |> ParseContent.parse_content()
 
       {:ok, food_trucks: parsed_food_trucks}

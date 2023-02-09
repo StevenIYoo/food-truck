@@ -3,11 +3,12 @@ defmodule FileParseTest do
 
   alias FoodTruck.FileReader
 
-  @test_file_local_path "/test/Mobile_Food_Facility_Permit_Test.csv"
+  @test_file_local_path "/test/files/Mobile_Food_Facility_Permit_Test.csv"
 
   describe "file and content reader" do
     setup do
-      {:ok, test_file_local_path: @test_file_local_path}
+      test_file_path = File.cwd!() <> @test_file_local_path
+      {:ok, test_file_local_path: test_file_path}
     end
 
     test "check csv file read", %{test_file_local_path: test_file} do
