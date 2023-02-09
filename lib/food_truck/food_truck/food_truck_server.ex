@@ -4,10 +4,10 @@ defmodule FoodTruck.FoodTruckServer do
 
   alias FoodTruck.FileReader
   alias FoodTruck.ParseContent
-  alias FoodTruck.FoodTruck
+  alias FoodTruck.FoodTruckStruct
 
   @type state :: %{
-    food_trucks: list(%FoodTruck{})
+    food_trucks: list(FoodTruckStruct.t)
   }
 
   @spec server_name() :: GenServer.name()
@@ -15,18 +15,16 @@ defmodule FoodTruck.FoodTruckServer do
     {:global, "#{__MODULE__}"}
   end
 
-  @spec start_link({}) :: :ignore | {:error, any} | {:ok, pid}
-  def start_link({}) do
-    GenServer.start_link(__MODULE__, {}, name: server_name())
+  @spec start_link([]) :: :ignore | {:error, any} | {:ok, pid}
+  def start_link(opts) do
+    Logger.debug("starting food truck")
+    GenServer.start_link(__MODULE__, opts, name: server_name())
   end
 
   @impl true
   def init(_args) do
-    food_trucks =
-    FileReader.read_file()
+    food_trucks = FileReader.read_file()
     |> ParseContent.parse_content()
-    |> ParseContent.get_food_trucks()
-    |> Enum.map(&(FoodTruck.new_food_truck(&1)))
 
     state = %{
       food_trucks: food_trucks
@@ -39,8 +37,12 @@ defmodule FoodTruck.FoodTruckServer do
 
   @impl true
   def handle_call(:get_random_food_truck, _from, state) do
-    {:reply, Enum.fetch!(state.food_trucks, get_random_number(state))}
+    {:reply, {:ok, get_random_food_truck(state.food_trucks)}, state}
   end
 
-  defp get_random_number(state), do: Enum.random(0..Enum.count(state.food_trucks))
+  defp get_random_food_truck([]), do: %FoodTruckStruct{}
+  defp get_random_food_truck(food_trucks) do
+    random_number = Enum.random(0..Enum.count(food_trucks) - 1)
+    Enum.fetch!(food_trucks, random_number)
+  end
 end

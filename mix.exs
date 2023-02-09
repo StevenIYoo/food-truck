@@ -42,6 +42,7 @@ defmodule FoodTruck.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:nimble_csv, "~> 1.2.0"}
     ]
   end
 

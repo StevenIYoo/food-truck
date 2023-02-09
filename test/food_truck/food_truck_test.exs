@@ -3,7 +3,7 @@ defmodule FoodTruckTest do
 
   alias FoodTruck.FileReader
   alias FoodTruck.ParseContent
-  alias FoodTruck.FoodTruck
+  alias FoodTruck.FoodTruckStruct
 
   @test_file_local_path "/test/Mobile_Food_Facility_Permit_Test.csv"
 
@@ -11,16 +11,15 @@ defmodule FoodTruckTest do
     setup do
       parsed_food_trucks = FileReader.read_file(@test_file_local_path)
       |> ParseContent.parse_content()
-      |> ParseContent.get_food_trucks()
 
       {:ok, food_trucks: parsed_food_trucks}
     end
 
     test "check struct is formed", %{food_trucks: food_trucks} do
-      food_truck = FoodTruck.new_food_truck(List.first(food_trucks))
+      first = List.first(food_trucks)
 
-      assert food_truck ==
-      %FoodTruck{
+      assert first ==
+      %FoodTruckStruct{
         location_id: "735318",
         applicant: "Ziaurehman Amini",
         facility_type: "Push Cart",

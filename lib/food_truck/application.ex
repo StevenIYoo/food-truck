@@ -22,9 +22,7 @@ defmodule FoodTruck.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: FoodTruck.Supervisor]
-    {:ok, pid} = Supervisor.start_link(children, opts)
-    start_application()
-    {:ok, pid}
+    Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
@@ -33,10 +31,5 @@ defmodule FoodTruck.Application do
   def config_change(changed, _new, removed) do
     FoodTruckWeb.Endpoint.config_change(changed, removed)
     :ok
-  end
-
-  @spec start_application() :: :ok
-  def start_application() do
-    FoodTruck.FoodTruckSupervisor.start_food_truck_system()
   end
 end
