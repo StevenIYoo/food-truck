@@ -4,7 +4,6 @@ defmodule FoodTruck.FoodTruckSupervisor do
 
   @moduledoc """
     Supervisor responsible for starting and restarting the `FoodTruck.FoodTruckServer`
-    current supervision strategy is one_for_one
   """
 
   def start_link(opts) do

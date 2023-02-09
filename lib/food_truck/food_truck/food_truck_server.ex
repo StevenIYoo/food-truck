@@ -23,6 +23,7 @@ defmodule FoodTruck.FoodTruckServer do
   @spec start_link([]) :: :ignore | {:error, any} | {:ok, pid}
   def start_link(opts) do
     Logger.debug("starting food truck")
+
     GenServer.start_link(__MODULE__, opts, name: server_name())
   end
 

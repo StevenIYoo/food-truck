@@ -33,13 +33,17 @@ defmodule FoodTruck.MixProject do
   defp docs do
     [
       main: "readme",
+      source_url: "https://github.com/StevenIYoo/food-truck",
+      homepage_url: "https://food-truck.gigalixirapp.com/api/food-trucks/random",
       assets: "documentation",
       extras: [
         "README.md",
+        "documentation/architecture.md"
       ],
       groups_for_functions: [
         Guards: &(&1[:guard] === true)
       ],
+      formatters: ["html"]
     ]
   end
 
@@ -51,7 +55,6 @@ defmodule FoodTruck.MixProject do
       {:phoenix, "~> 1.6.15"},
       {:phoenix_live_dashboard, "~> 0.6"},
       {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},

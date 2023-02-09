@@ -76,6 +76,7 @@ defmodule FoodTruck.FoodTruckStruct do
   @doc "returns a random food truck based on the list size"
   @spec get_random_food_truck(list(t)) :: t
   def get_random_food_truck([]), do: %__MODULE__{}
+
   def get_random_food_truck(food_trucks) do
     random_number = Enum.random(0..Enum.count(food_trucks) - 1)
 

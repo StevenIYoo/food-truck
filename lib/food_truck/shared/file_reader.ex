@@ -9,11 +9,8 @@ defmodule FoodTruck.FileReader do
 
   @doc "read contents of file"
   @spec read_file(String.t) :: String.t
-  def read_file(file_path) do
-    File.read!(file_path)
-  end
+  def read_file(file_path), do: File.read!(file_path)
 
-  def read_file() do
+  def read_file(), do:
     File.read!(Path.join(:code.priv_dir(:food_truck), @priv_file_path))
-  end
 end

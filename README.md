@@ -20,5 +20,14 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 ## How to use
   * run server with `iex -S mix phx.server`
-  * run `FoodTruck.FoodTruckAPI.get_random_food_truck()
-Will return a random food truck from csv list
+  * navigate to [`localhost:4000/api/food-trucks/random`](localhost:4000/api/food-trucks/random)
+  * This will return an api json payload referenced by `data:`
+  * The app is also currently being hosted at Gigalixir [here](https://food-truck.gigalixirapp.com/api/food-trucks/random)
+  * You can also generate html docs with `ex_doc` by running `mix docs` in the root directory of the app. Output is the `/doc` directory
+
+## Functionality
+<p>The app services a single api endpoints at</p> 
+`[host]/api/food-trucks/random` 
+<p>which will return a json payload of a randomly selected food truck</p>
+
+Open `doc/architecture.html` for details on design decisions.

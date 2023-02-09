@@ -7,10 +7,6 @@ config :food_truck, FoodTruckWeb.Endpoint,
   secret_key_base: "UcU2xFHXzs0I5kfpRX9b/FdddidPFdi1azQkjnFpc3PzTHRkIPlIrp71jTOYCIcs",
   server: false
 
-# In test we don't send emails.
-config :food_truck, FoodTruck.Mailer,
-  adapter: Swoosh.Adapters.Test
-
 # Print only warnings and errors during test
 config :logger, level: :warn
 
