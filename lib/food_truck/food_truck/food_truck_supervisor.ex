@@ -2,6 +2,11 @@ defmodule FoodTruck.FoodTruckSupervisor do
   use Supervisor
   require Logger
 
+  @moduledoc """
+    Supervisor responsible for starting and restarting the `FoodTruck.FoodTruckServer`
+    current supervision strategy is one_for_one
+  """
+
   def start_link(opts) do
     Supervisor.start_link(__MODULE__, :ok, opts)
   end

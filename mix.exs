@@ -10,7 +10,8 @@ defmodule FoodTruck.MixProject do
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      docs: docs()
     ]
   end
 
@@ -28,6 +29,20 @@ defmodule FoodTruck.MixProject do
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
+  # Specifies doc generation.
+  defp docs do
+    [
+      main: "readme",
+      assets: "documentation",
+      extras: [
+        "README.md",
+      ],
+      groups_for_functions: [
+        Guards: &(&1[:guard] === true)
+      ],
+    ]
+  end
+
   # Specifies your project dependencies.
   #
   # Type `mix help deps` for examples and options.
@@ -42,7 +57,8 @@ defmodule FoodTruck.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:nimble_csv, "~> 1.2.0"}
+      {:nimble_csv, "~> 1.2.0"},
+      {:ex_doc, "~> 0.28", runtime: false},
     ]
   end
 

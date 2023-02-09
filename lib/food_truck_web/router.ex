@@ -7,6 +7,8 @@ defmodule FoodTruckWeb.Router do
 
   scope "/api", FoodTruckWeb do
     pipe_through :api
+
+    get "/food-trucks/random", FoodTruckController, :random_food_truck
   end
 
   # Enables LiveDashboard only for development

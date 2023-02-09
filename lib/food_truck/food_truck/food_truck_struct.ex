@@ -1,4 +1,8 @@
 defmodule FoodTruck.FoodTruckStruct do
+  @moduledoc """
+    Constains the struct and type of `t` and provides functionality
+    on retrieving
+  """
   defstruct [
     location_id: nil,
     applicant: "",
@@ -63,9 +67,18 @@ defmodule FoodTruck.FoodTruckStruct do
     neighborhoods_old: String.t
   }
 
+  @doc "returns a new food truck based on a passed keyword list"
   @spec new_food_truck(keyword(t)) :: t
   def new_food_truck(attributes) do
     __struct__(attributes)
   end
 
+  @doc "returns a random food truck based on the list size"
+  @spec get_random_food_truck(list(t)) :: t
+  def get_random_food_truck([]), do: %__MODULE__{}
+  def get_random_food_truck(food_trucks) do
+    random_number = Enum.random(0..Enum.count(food_trucks) - 1)
+
+    Enum.fetch!(food_trucks, random_number)
+  end
 end

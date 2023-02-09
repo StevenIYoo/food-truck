@@ -6,6 +6,11 @@ defmodule FoodTruck.FoodTruckServer do
   alias FoodTruck.ParseContent
   alias FoodTruck.FoodTruckStruct
 
+  @moduledoc """
+    GenServer that reads the csv file and stores a list of `FoodTruck.FoodTruckStruct` into it's state for caching.
+    Provides functionality on retrieving `FoodTruck.FoodTruckStruct` information
+  """
+
   @type state :: %{
     food_trucks: list(FoodTruckStruct.t)
   }
@@ -37,12 +42,8 @@ defmodule FoodTruck.FoodTruckServer do
 
   @impl true
   def handle_call(:get_random_food_truck, _from, state) do
-    {:reply, {:ok, get_random_food_truck(state.food_trucks)}, state}
-  end
+    random_food_truck = FoodTruckStruct.get_random_food_truck(state.food_trucks)
 
-  defp get_random_food_truck([]), do: %FoodTruckStruct{}
-  defp get_random_food_truck(food_trucks) do
-    random_number = Enum.random(0..Enum.count(food_trucks) - 1)
-    Enum.fetch!(food_trucks, random_number)
+    {:reply, {:ok, random_food_truck}, state}
   end
 end

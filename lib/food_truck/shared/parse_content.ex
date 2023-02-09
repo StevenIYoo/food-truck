@@ -9,7 +9,7 @@ defmodule FoodTruck.ParseContent do
     Content is returned as a list of comma delimited string with new lines stripped
   """
 
-  @doc "Parses csv file into list of strings based on new line removes header \n"
+  @doc "Parses csv file into list of FoodTruckStruct.t based on new line removes header \n"
   @spec parse_content(String.t) :: list(String.t)
   def parse_content(content) do
     CSV.parse_string(content)
@@ -56,8 +56,4 @@ defmodule FoodTruck.ParseContent do
     )
     |> Enum.to_list()
   end
-
-  # @doc "Returns rest of content"
-  # @spec get_food_trucks(list(String.t)) :: list(String.t)
-  # def get_food_trucks([_head | tail] = _parsed_list), do: tail
 end
